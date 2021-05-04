@@ -14,10 +14,23 @@ class Admin extends BaseAuth
 {
     use SoftDeletes, PAdmin;
 
-    protected $table = 'admin';
+    protected $table = 'admins';
     protected $primaryKey = 'id';
     protected $fillable = [];
     protected $hidden = ['password'];
+
+    /**
+     * Login not use remember_token
+     * @param array $options
+     * @return bool
+     */
+    public function save(array $options = array())
+    {
+        if (isset($this->remember_token)) {
+            unset($this->remember_token);
+        }
+        return parent::save($options);
+    }
 
     /**
      * @param $value

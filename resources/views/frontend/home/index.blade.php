@@ -1,4 +1,4 @@
-@extends('frontend.layouts.main')
+@extends('layouts.frontend.main')
 @section('content')
     Hello!
 @endsection

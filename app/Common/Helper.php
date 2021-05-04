@@ -21,6 +21,13 @@ use Illuminate\Support\Str;
 |
 */
 
+if (!function_exists('getAppName')) {
+    function getAppName($default = null)
+    {
+        return config('app.name', $default);
+    }
+}
+
 if (!function_exists('getConstant')) {
     function getConstant($key = '', $default = null)
     {
@@ -47,6 +54,13 @@ if (!function_exists('getMessage')) {
     function getMessage($key = null, $replace = [], $locale = null)
     {
         return trans('messages.' . $key, $replace, $locale);
+    }
+}
+
+if (!function_exists('getAction')) {
+    function getAction($key = null, $replace = [], $locale = null)
+    {
+        return trans('actions.' . $key, $replace, $locale);
     }
 }
 
