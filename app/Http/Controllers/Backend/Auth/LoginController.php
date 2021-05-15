@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend\Auth;
 
 use App\Http\Controllers\Base\BackendController;
-use App\Http\Requests\Backend\LoginRequest;
+use App\Http\Requests\Backend\Auth\LoginRequest;
 
 /**
  * Class LoginController
@@ -14,7 +14,7 @@ class LoginController extends BackendController
     public function showLoginForm()
     {
         if (backendGuard()->check()) {
-            return redirect()->route('backend.dashboard');
+            return redirect()->route('backend.dashboard.index');
         }
 
         return $this->render('backend.auth.login');
@@ -30,7 +30,7 @@ class LoginController extends BackendController
         $remember = isset($params['remember']);
 
         if (backendGuard()->attempt($data, $remember)) {
-            return redirect()->route('backend.dashboard');
+            return redirect()->route('backend.dashboard.index');
         }
 
         return redirect()->back()->withErrors(trans('auth.incorrect'));

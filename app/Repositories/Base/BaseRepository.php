@@ -54,4 +54,20 @@ abstract class BaseRepository
         // ~ call_user_func_array($this->getModel()->{$name}, $arguments)
         // call_user_func_array('functionA', ['param1', 'param2']) ~ functionA('param1', 'param2')
     }
+
+    public function findFirstOrNew($id = null)
+    {
+        // New
+        if (empty($id)) {
+            return app()->make($this->model());
+        }
+
+        // Find first
+        return $this->where($this->getKeyName(), $id)->first();
+    }
+
+    public function findById($id, $selects = ['*'])
+    {
+        return $this->select($selects)->where('id', $id)->first();
+    }
 }

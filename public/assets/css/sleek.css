@@ -15787,6 +15787,10 @@ div.copied {
   font-size: 1.5rem;
 }
 
+.sidebar .nav li.has-sub ul.collapse li a i {
+    margin-right: 0.5rem;
+}
+
 .sidebar .nav > li.active > a i {
   color: #4c84ff;
 }

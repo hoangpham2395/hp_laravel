@@ -11,4 +11,5 @@ return [
     'sign_in' => 'Sign in',
     'sign_up' => 'Sign up',
     'remember_me' => 'Remember me',
+    'upload' => 'Upload',
 ];

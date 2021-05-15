@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Base;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -21,6 +23,7 @@ class BaseController extends Controller
     protected $_viewData = [];
     protected $_title = '';
     protected $_repository;
+    protected $_confirmRoute;
     // For SEO
     protected $_description = '';
     protected $_keywords = '';
@@ -143,6 +146,21 @@ class BaseController extends Controller
         $this->_repository = $repository;
     }
 
+    public function getConfirmRoute()
+    {
+        return $this->_confirmRoute;
+    }
+
+    public function setConfirmRoute($confirmRoute)
+    {
+        $this->_confirmRoute = $confirmRoute;
+    }
+
+    public function toConfirm()
+    {
+        return !empty($this->getConfirmRoute());
+    }
+
     public function isBackend()
     {
         return $this->getArea() == 'backend';
@@ -170,22 +188,46 @@ class BaseController extends Controller
 
     public function create()
     {
+        $entity = $this->getRepository()->findFirstOrNew();
+        $this->setViewData(compact('entity'));
         return $this->render();
+    }
+
+    public function validStore($request)
+    {
+        if ($this->toConfirm()) {
+            return redirect()->route($this->getConfirmRoute());
+        }
+        return $this->store();
     }
 
     public function store()
     {
+        DB::beginTransaction();
+        try {
 
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            logs($e);
+        }
     }
 
     public function edit($id)
     {
+        $entity = $this->getRepository()->findById($id);
+        $this->setViewData(compact('entity'));
         return $this->render();
     }
 
     public function update($id)
     {
 
+    }
+
+    public function confirm()
+    {
+        return $this->render();
     }
 
     public function destroy($id)

@@ -1,14 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Backend;
+namespace App\Http\Requests\Backend\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-/**
- * Class LoginRequest
- * @package App\Http\Requests\Backend
- */
-class LoginRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,8 +24,7 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required',
+            //
         ];
     }
 }
