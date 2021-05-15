@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /*
@@ -228,8 +229,12 @@ if (!function_exists('genInputFile')) {
 }
 
 if (!function_exists('fullUrl')) {
-    function fullUrl($url)
+    function fullUrl($url, $isShowDefault = true)
     {
-        return asset($url);
+        if (empty($source) || Storage::exists($source)) {
+            return $isShowDefault ? asset('assets/img/common/no_image.jpg') : '';
+        }
+
+        return Storage::url($source);
     }
 }

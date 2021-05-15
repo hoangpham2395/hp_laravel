@@ -18,6 +18,14 @@ return [
                 'text' => 'Thay đổi',
                 'parents' => ['index'],
             ],
+            'show' => [
+                'text' => 'Thông tin cá nhân',
+                'parents' => ['index'],
+            ],
+            'confirm' => [
+                'text' => 'Xác nhận thông tin',
+                'parents' => ['index'],
+            ],
         ],
     ],
 ];

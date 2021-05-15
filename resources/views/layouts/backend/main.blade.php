@@ -20,6 +20,9 @@
                 {!! genBreadcrumb() !!}
                 <div class="row">
                     <div class="col-12">
+                        @include('layouts.backend.elements._message')
+                    </div>
+                    <div class="col-12">
                         <div class="card card-default">
                             @yield('content')
                         </div>

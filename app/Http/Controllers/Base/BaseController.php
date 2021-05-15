@@ -9,6 +9,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 /**
@@ -95,6 +96,11 @@ class BaseController extends Controller
         $this->_url = $url;
     }
 
+    public function setMessageSuccess($message)
+    {
+        Session::flash('success', $message);
+    }
+
     public function getCurrentControllerAction()
     {
         $routeAction = Route::currentRouteAction();
@@ -108,10 +114,14 @@ class BaseController extends Controller
         ];
     }
 
+    public function getCurrentController()
+    {
+        return data_get($this->getCurrentControllerAction(), 'controller');
+    }
+
     public function getCurrentControllerName($toLower = true)
     {
-        $controller = data_get($this->getCurrentControllerAction(), 'controller');
-        $controller = data_get(explode('Controller', $controller), 0);
+        $controller = data_get(explode('Controller', $this->getCurrentController()), 0);
         return $toLower ? Str::lower($controller) : $controller;
     }
 
@@ -193,13 +203,13 @@ class BaseController extends Controller
         return $this->render();
     }
 
-    public function validStore($request)
-    {
-        if ($this->toConfirm()) {
-            return redirect()->route($this->getConfirmRoute());
-        }
-        return $this->store();
-    }
+//    public function validStore()
+//    {
+//        if ($this->toConfirm()) {
+//            return redirect()->route($this->getConfirmRoute());
+//        }
+//        return $this->store();
+//    }
 
     public function store()
     {
@@ -207,6 +217,7 @@ class BaseController extends Controller
         try {
 
             DB::commit();
+            $this->setMessageSuccess(trans('messages.create_success'));
         } catch (\Exception $e) {
             DB::rollBack();
             logs($e);

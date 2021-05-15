@@ -18,6 +18,14 @@ return [
                 'text' => 'Edit',
                 'parents' => ['index'],
             ],
+            'show' => [
+                'text' => 'My profile',
+                'parents' => ['index'],
+            ],
+            'confirm' => [
+                'text' => 'Confirm',
+                'parents' => ['index'],
+            ],
         ],
     ],
 ];

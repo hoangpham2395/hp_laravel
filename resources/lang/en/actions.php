@@ -12,4 +12,5 @@ return [
     'sign_up' => 'Sign up',
     'remember_me' => 'Remember me',
     'upload' => 'Upload',
+    'my_profile' => 'My Profile',
 ];

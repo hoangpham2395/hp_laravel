@@ -13,7 +13,9 @@
         @endif
     </div>
     <br/>
-    <button type="button" class="btn btn-primary btn-default" onclick="$('#{{$fieldFile}}').click()">{{getAction('upload')}}</button>
+    <button type="button" class="btn btn-default" onclick="$('#{{$fieldFile}}').click()">
+        <span class="mdi mdi-file-upload"></span>&nbsp;{{getAction('upload')}}
+    </button>
 </div>
 @push('scripts')
     <script>

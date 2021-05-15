@@ -12,4 +12,5 @@ return [
     'sign_up' => 'Đăng ký',
     'remember_me' => 'Hãy nhớ lấy tôi',
     'upload' => 'Tải lên',
+    'my_profile' => 'Thông tin cá nhân',
 ];

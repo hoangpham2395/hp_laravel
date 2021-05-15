@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BaseRequest extends FormRequest
 {
+    protected $table;
+
     protected function _getRulesDefault()
     {
         return [];
@@ -18,7 +20,7 @@ class BaseRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -28,9 +30,14 @@ class BaseRequest extends FormRequest
      */
     public function rules()
     {
+        return [];
+    }
 
-        return [
-            //
-        ];
+    public function attributes()
+    {
+        if (empty($this->table)) {
+            return parent::attributes();
+        }
+        return trans('model.' . $this->table);
     }
 }
